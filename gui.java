@@ -131,6 +131,7 @@ public class gui extends javax.swing.JFrame {
     }//GEN-LAST:event_submitActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        infoLog.setText("");
         Connect();
         action.getPersonsInfo();
         Disconnect();

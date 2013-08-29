@@ -60,7 +60,6 @@ public class Sql_statements extends Sql_connection {
                 String lname = resultSet.getString("last_name");
                 String number = resultSet.getString("mobile_phone");
                 window.infoLog.append(id + "\t" + fname + "\t" + lname + "\t" + number + "\n");
-                System.out.println(id + "\t" + fname + "\t" + lname + "\t" + number + "\n");
             }
 
         } catch (SQLException error) {
