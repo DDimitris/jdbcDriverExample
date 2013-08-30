@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package yolo;
+package jdbc_example;
 
 /**
  *
@@ -10,7 +10,8 @@ package yolo;
  */
 public class gui extends javax.swing.JFrame {
 
-    public Sql_statements action;
+    public SqlStatements action;
+    public XmlParser parser;
 
     /**
      * Creates new form gui
@@ -137,12 +138,15 @@ public class gui extends javax.swing.JFrame {
         Disconnect();
     }//GEN-LAST:event_refreshActionPerformed
     public void CreateObject() {
-        action = new Sql_statements(this);
+        action = new SqlStatements(this);
+        parser = new XmlParser();
+
     }
 
     public void Connect() {
         action.initializeJDBC();
-        action.ConnectToDataBase();
+        parser.ReadXmlFile();
+        action.ConnectToDataBase(parser.getUsername(), parser.getPassword(), parser.getURL());
         action.createStatement();
     }
 

@@ -1,10 +1,10 @@
-package yolo;
+package jdbc_example;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class Sql_statements extends Sql_connection {
+public class SqlStatements extends SqlConnection {
 
     private Statement statement = null;
     private ResultSet resultSet = null;
@@ -16,7 +16,7 @@ public class Sql_statements extends Sql_connection {
     /**
      * @param window Constructor of this class.
      */
-    public Sql_statements(gui window) {
+    public SqlStatements(gui window) {
         this.window = window;
     }
 
@@ -35,6 +35,11 @@ public class Sql_statements extends Sql_connection {
     }
 
     /**
+     *
+     * @param first_name
+     * @param last_name
+     * @param mobile_phone
+     *
      * Execute a statement to the Database. This method is type void.
      */
     public void setNewPerson(String first_name, String last_name, String mobile_phone) {
