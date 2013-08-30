@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class SqlConnection {
 
-    public Connection connection = null;
+    public static Connection connection = null;
 
     /**
-     * Load the JDBC driver in to the memory. This method is type void.
+     * Load the JDBC driver in to the memory.
      */
     protected void initializeJDBC() {
         try {
-            System.out.println("Initializing Driver...");
+            System.out.println("Initializing Driver.");
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Done!");
         } catch (ClassNotFoundException error) {
@@ -22,13 +22,12 @@ public class SqlConnection {
     }
 
     /**
-     * Connect to MySQL database with username: root and password: root on a
-     * different machine. Remember to GRANT PRIVILEGES for this computer ip
-     * address. This method is type void.
+     * Connect to MySQL database. Remember to GRANT PRIVILEGES for this computer
+     * ip address.
      */
-    public void ConnectToDataBase(String username, String password, String url) {
+    public static void ConnectToDataBase(String username, String password, String url) {
         try {
-            System.out.println("Connecting to DataBase...");
+            System.out.println("Connecting to DataBase.");
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("Connection Successful!");
         } catch (SQLException error) {
@@ -37,12 +36,12 @@ public class SqlConnection {
     }
 
     /**
-     * Close the connection with the MySQL Database. This method is type void.
+     * Close the connection with the MySQL Database.
      */
     protected void ConnectionClose() {
         if (connection != null) {
             try {
-                System.out.println("Closing Connection...");
+                System.out.println("Closing Connection.");
                 connection.close();
                 System.out.println("Connection Closed!");
             } catch (SQLException ignore) {

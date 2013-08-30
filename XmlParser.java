@@ -4,15 +4,13 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-public class XmlParser extends SqlConnection {
+public class XmlParser {
 
     private String username;
     private String password;
     private String url;
+    SqlConnection connect = new SqlConnection();
 
     /**
      * ReadXmlFile opens an xml file in a given directory and reads it until it
@@ -20,25 +18,18 @@ public class XmlParser extends SqlConnection {
      */
     public void ReadXmlFile() {
         try {
-
             File credentials = new File("src\\jdbc_example\\credentials.xml");
             DocumentBuilderFactory Factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder Builder = Factory.newDocumentBuilder();
             Document doc = Builder.parse(credentials);
             doc.getDocumentElement().normalize();
-            NodeList list = doc.getElementsByTagName("credentials");
-            for (int temp = 0; temp < list.getLength(); temp++) {
-                Node node = list.item(temp);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-                    username = element.getElementsByTagName("username").item(temp).getTextContent();
-                    password = element.getElementsByTagName("password").item(temp).getTextContent();
-                    url = element.getElementsByTagName("url").item(temp).getTextContent();
-                    setUsername(username);
-                    setPassword(password);
-
-                }
-            }
+            username = doc.getElementsByTagName("username").item(0).getTextContent();
+            password = doc.getElementsByTagName("password").item(0).getTextContent();
+            url = doc.getElementsByTagName("url").item(0).getTextContent();
+            setUsername(username);
+            setPassword(password);
+            setURL(url);
+            connection();
         } catch (Exception error) {
             System.out.println("Error: " + error.getMessage());
         }
@@ -76,7 +67,7 @@ public class XmlParser extends SqlConnection {
 
     /**
      *
-     * Returns the argument "username", that is type string.
+     * Returns the argument "username", which is type string.
      */
     public String getUsername() {
         return username;
@@ -84,7 +75,7 @@ public class XmlParser extends SqlConnection {
 
     /**
      *
-     * Returns the argument "password", that is type string.
+     * Returns the argument "password", which is type string.
      */
     public String getPassword() {
         return password;
@@ -92,9 +83,17 @@ public class XmlParser extends SqlConnection {
 
     /**
      *
-     * Returns the argument "url", that is type string.
+     * Returns the argument "url", which is type string.
      */
     public String getURL() {
         return url;
+    }
+
+    /**
+     * Pass arguments to ConnectToDataBase method for connection with your
+     * DataBase.
+     */
+    public void connection() {
+        connect.ConnectToDataBase(getUsername(), getPassword(), getURL());
     }
 }

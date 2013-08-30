@@ -1,24 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package jdbc_example;
 
-/**
- *
- * @author Dimitris
- */
 public class gui extends javax.swing.JFrame {
-
-    public SqlStatements action;
-    public XmlParser parser;
 
     /**
      * Creates new form gui
      */
     public gui() {
         initComponents();
-        CreateObject();
     }
 
     /**
@@ -123,75 +111,20 @@ public class gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        Connect();
-        action.setNewPerson(fname.getText(), lname.getText(), number.getText());
-        Disconnect();
-        fname.setText("");
-        lname.setText("");
-        number.setText("");
     }//GEN-LAST:event_submitActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        infoLog.setText("");
-        Connect();
-        action.getPersonsInfo();
-        Disconnect();
     }//GEN-LAST:event_refreshActionPerformed
-    public void CreateObject() {
-        action = new SqlStatements(this);
-        parser = new XmlParser();
-
-    }
-
-    public void Connect() {
-        action.initializeJDBC();
-        parser.ReadXmlFile();
-        action.ConnectToDataBase(parser.getUsername(), parser.getPassword(), parser.getURL());
-        action.createStatement();
-    }
-
-    public void Disconnect() {
-        action.CloseStatement();
-        action.ConnectionClose();
-    }
-
-    public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new gui().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField fname;
+    public javax.swing.JTextField fname;
     public javax.swing.JTextArea infoLog;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lname;
-    private javax.swing.JTextField number;
-    private javax.swing.JButton refresh;
-    private javax.swing.JButton submit;
+    public javax.swing.JTextField lname;
+    public javax.swing.JTextField number;
+    public javax.swing.JButton refresh;
+    public javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
 }
