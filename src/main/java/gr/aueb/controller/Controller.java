@@ -2,7 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jdbc_example;
+package gr.aueb.controller;
+
+import gr.aueb.model.SqlStatements;
+import gr.aueb.utils.XmlParser;
+import gr.aueb.view.Gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +21,7 @@ public class Controller {
     int count = 0;
     SqlStatements statements;
     XmlParser parser;
-    gui gui;
+    Gui gui;
 
     /**
      *
@@ -27,7 +31,7 @@ public class Controller {
      *
      * Constructor of Controller.
      */
-    public Controller(SqlStatements statements, XmlParser parser, gui gui) {
+    public Controller(SqlStatements statements, XmlParser parser, Gui gui) {
         this.gui = gui;
         this.statements = statements;
         this.parser = parser;
@@ -40,9 +44,10 @@ public class Controller {
      * Method for initialize JDBC driver, connect to DataBase, parse XML file
      * and create statement.
      */
-    public void Connect() {
+    public void connect() {
         statements.initializeJDBC();
-        parser.ReadXmlFile();
+        parser.readXmlFile();
+        statements.connectToDataBase(parser.getUsername(), parser.getPassword(), parser.getURL());
         statements.createStatement();
     }
 
@@ -50,7 +55,7 @@ public class Controller {
      * This Method appends data to the TextArea.
      */
     public void printData() {
-        for (String i : statements.name) {
+        for (String i : statements.getNames()) {
             count++;
             if (count == 4) {
                 character = "\n";
@@ -60,15 +65,15 @@ public class Controller {
             }
             gui.infoLog.append(i + "\t" + character);
         }
-        statements.name.clear();
+        statements.clearNames();
     }
 
     /**
      * Method for closing statement and close the connection with the DataBase.
      */
-    public void Disconnect() {
-        statements.CloseStatement();
-        statements.ConnectionClose();
+    public void disconnect() {
+        statements.closeStatement();
+        statements.connectionClose();
     }
 
     /**
@@ -77,9 +82,9 @@ public class Controller {
     class SubmitListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            Connect();
+            connect();
             statements.setNewPerson(gui.fname.getText(), gui.lname.getText(), gui.number.getText());
-            Disconnect();
+            disconnect();
             gui.fname.setText("");
             gui.lname.setText("");
             gui.number.setText("");
@@ -93,10 +98,10 @@ public class Controller {
 
         public void actionPerformed(ActionEvent e) {
             gui.infoLog.setText("");
-            Connect();
+            connect();
             statements.getPersonsInfo();
             printData();
-            Disconnect();
+            disconnect();
         }
     }
 }

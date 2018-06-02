@@ -1,1 +1,3 @@
-credentials.xml
+.idea/
+jdbcDriverExample.iml
+target/

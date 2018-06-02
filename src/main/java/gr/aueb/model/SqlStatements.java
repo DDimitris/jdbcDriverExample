@@ -1,4 +1,4 @@
-package jdbc_example;
+package gr.aueb.model;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,12 +7,10 @@ import java.util.ArrayList;
 
 public class SqlStatements extends SqlConnection {
 
-    ArrayList<String> name = new ArrayList<String>();
+    private ArrayList<String> names = new ArrayList<String>();
     private Statement statement = null;
     private ResultSet resultSet = null;
-    String first_name;
-    String last_name;
-    String mobile_phone;
+
 
     /**
      * Create a statement for use with INSERT and SELECT commands.
@@ -23,7 +21,7 @@ public class SqlStatements extends SqlConnection {
             statement = connection.createStatement();
             System.out.println("Done!");
         } catch (SQLException error) {
-            System.out.println("Error: " + error.getMessage());
+            System.out.println("Error in creating the statement: " + error.getMessage());
         }
     }
 
@@ -58,10 +56,10 @@ public class SqlStatements extends SqlConnection {
                 String fname = resultSet.getString("first_name");
                 String lname = resultSet.getString("last_name");
                 String number = resultSet.getString("mobile_phone");
-                name.add(identificationNumber);
-                name.add(fname);
-                name.add(lname);
-                name.add(number);
+                names.add(identificationNumber);
+                names.add(fname);
+                names.add(lname);
+                names.add(number);
             }
 
 
@@ -73,7 +71,7 @@ public class SqlStatements extends SqlConnection {
     /**
      * Close the statement and the resultSet.
      */
-    public void CloseStatement() {
+    public void closeStatement() {
 
         if (statement != null) {
             try {
@@ -91,5 +89,13 @@ public class SqlStatements extends SqlConnection {
                 }
             }
         }
+    }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public void clearNames(){
+        names.clear();
     }
 }

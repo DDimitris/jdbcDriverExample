@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: jdbc_example
+-- Host: localhost    Database: test
 -- ------------------------------------------------------
 -- Server version	5.5.32-0ubuntu0.13.04.1
 

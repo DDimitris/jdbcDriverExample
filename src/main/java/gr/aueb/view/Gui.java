@@ -1,11 +1,11 @@
-package jdbc_example;
+package gr.aueb.view;
 
-public class gui extends javax.swing.JFrame {
+public class Gui extends javax.swing.JFrame {
 
     /**
-     * Creates new form gui
+     * Creates new form Gui
      */
-    public gui() {
+    public Gui() {
         initComponents();
     }
 

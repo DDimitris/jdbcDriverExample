@@ -1,4 +1,4 @@
-package jdbc_example;
+package gr.aueb.utils;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
@@ -10,15 +10,15 @@ public class XmlParser {
     private String username;
     private String password;
     private String url;
-    SqlConnection connect = new SqlConnection();
 
     /**
-     * ReadXmlFile opens an xml file in a given directory and reads it until it
+     * readXmlFile opens an xml file in a given directory and reads it until it
      * find the tags "username" and "password".
      */
-    public void ReadXmlFile() {
+    public void readXmlFile() {
         try {
-            File credentials = new File("src\\jdbc_example\\credentials.xml");
+            ClassLoader classLoader = getClass().getClassLoader();
+            File credentials = new File(classLoader.getResource("credentials_example.xml").getFile());
             DocumentBuilderFactory Factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder Builder = Factory.newDocumentBuilder();
             Document doc = Builder.parse(credentials);
@@ -29,9 +29,8 @@ public class XmlParser {
             setUsername(username);
             setPassword(password);
             setURL(url);
-            connection();
         } catch (Exception error) {
-            System.out.println("Error: " + error.getMessage());
+            System.out.println("Error in parssing the given xml file: " + error.getMessage());
         }
     }
 
@@ -42,6 +41,7 @@ public class XmlParser {
      * Sets the parameter username for the database connection.
      */
     public void setUsername(String username) {
+        System.out.println("Selected username: " + username);
         this.username = username;
     }
 
@@ -52,6 +52,7 @@ public class XmlParser {
      * Sets the parameter password for the database connection.
      */
     public void setPassword(String password) {
+        System.out.println("Selected password: " + password);
         this.password = password;
     }
 
@@ -62,6 +63,7 @@ public class XmlParser {
      * Sets the parameter url for the database connection.
      */
     public void setURL(String url) {
+        System.out.println("Selected URL: " + url);
         this.url = url;
     }
 
@@ -87,13 +89,5 @@ public class XmlParser {
      */
     public String getURL() {
         return url;
-    }
-
-    /**
-     * Pass arguments to ConnectToDataBase method for connection with your
-     * DataBase.
-     */
-    public void connection() {
-        connect.ConnectToDataBase(getUsername(), getPassword(), getURL());
     }
 }
